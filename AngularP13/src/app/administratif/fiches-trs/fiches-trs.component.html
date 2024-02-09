@@ -1,0 +1,102 @@
+
+  <div class="container-fluid">
+    <div *ngIf="_success" class="row alert-success justify-content-center mx-5 my-3 rounded">
+        <div class="col-8 p-3 pl-4 ">
+            {{_success}}
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-1">
+        </div>
+        <button class="btn col-1 text-center justify-content-center pt-1">
+            <i class="bi bi-x " data-toggle="tooltip" data-placement="top" title="Fermer" style="font-size: 32px;" (click)="fermer_success()"></i>
+        </button>
+    </div>
+    <div *ngIf="_error" class="row alert-danger justify-content-center mx-5 my-3 rounded">
+        <div class="col-8 p-3 pl-4 ">
+            {{_error}}
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-1">
+        </div>
+        <button class="btn col-1 text-center justify-content-center pt-1">
+            <i class="bi bi-x " data-toggle="tooltip" data-placement="top" title="Fermer" style="font-size: 32px;" (click)="fermer_success()"></i>
+        </button>
+    </div>
+    <div *ngIf="_warning" class="row alert-warning justify-content-center mx-5 my-3 rounded">
+        <div class="col-8 p-3 pl-4 ">
+            {{_warning}}
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-1">
+        </div>
+        <button class="btn col-1 text-center justify-content-center pt-1">
+            <i class="bi bi-x " data-toggle="tooltip" data-placement="top" title="Fermer" style="font-size: 32px;" (click)="fermer_success()"></i>
+        </button>
+    </div>
+      <div class="container-xxl mx-4 shadow-lg mb-2 bg-white rounded-lg"style="border-radius: 1.5rem!important;">
+          <div class="row m-3 p-3 border-bottom my-3 ">
+              <h4 class="col-10 text-dark">{{(_fiches.length>1)? _fiches.length+' fiches à transmettre':_fiches.length+' fiche à transmettre'}} </h4>
+              <div class="col-2"><button class="btn btn-warning text-light" (click)="transmis_tout()">Tout transmettre</button></div>
+          </div>
+            <div class="row m-3 p-3 text-info">
+                <div class="col">NumEtudiant</div>
+                <div class="col">Nom</div>
+                <div class="col">Prenom </div>
+                <div class="col-2">Email </div>
+                <div class="col">Parcours</div>
+                <div class="col">Semestre</div>
+                <div class="col">Date de remplissage</div>
+                <div class="col"></div>
+            </div>
+            <div *ngIf="_fiches.length==0" class="row w-100 text-center">
+                    <h4 class="text-muted w-100 text-center pb-4">Aucune fiche à transmettre <i class="bi bi-hand-thumbs-up-fill text-success"></i> biba.</h4>
+            </div>
+            <div class="row m-3 p-3 bg-light text-secondary" *ngFor="let fiche of _fiches; index as i">
+                <div class="row pl-4 w-100">
+                <div class="col p-2" >{{fiche.Etudiant.NumEtudiant}}</div>
+                <div class="col p-2" >{{fiche.Etudiant.NomEtudiant}}</div>
+                <div class="col p-2" >{{fiche.Etudiant.PrenomEtudiant}}</div>
+                <div class="col-2 p-2" >{{ (fiche.Etudiant.EmailEtudiant.length>6)? (fiche.Etudiant.EmailEtudiant | slice:0:23)+'...':(fiche.Etudiant.EmailEtudiant)}}</div>
+                <div class="col p-2" *ngIf="fiche.Etudiant.Parcours">{{fiche.Etudiant.Parcours.Libelle}}</div>
+                <div class="col p-2" *ngIf="!fiche.Etudiant.Parcours">Non inscrit</div>
+                <div class="col p-2" >{{fiche.Semestre}}</div>
+                <div class="col p-2" >{{fiche.Date | date : 'longDate'}}</div>
+                <div class="col text-center p-0">
+                <button type="button" class="btn btn-info btn-rounded btn-sm my-0" #p (click)="plus(div,p)"><i class="bi bi-plus" style="font-size: 18px;"></i></button>
+                </div>
+                <div class="row w-100"></div>
+                <div class="row w-100" #div style="display: none;">
+                    <div class="row m-3 p-3 w-100" >
+                        <div class="col">Code Apogee</div>
+                        <div class="col">Libelle</div>
+                        <div class="col">ECTS </div>
+                        <div class="col">Inscription </div>
+                        <div class="col">Note</div>
+                        <div class="col">Demande de RSE</div>
+                    </div>
+                    <div class="row w-100 mx-3 px-3">
+                        <div class="row w-100 m-1 p-1" *ngFor="let parcour of fiche.UeParcours; index as j">
+                            <div class="col" >{{parcour.ue.CodeApogee}}</div>
+                            <div class="col" >{{parcour.ue.Libelle}}</div>
+                            <div class="col" >{{parcour.ue.ECTS}}</div>
+                            <div class="col" >{{parcour.Inscription}}</div>
+                            <div class="col" >{{parcour.VNote}}</div>
+                            <div class="col" >{{parcour.RSE}}</div>
+                        </div>
+                        <div class="row w-100">
+                            <div class="col-10"></div>
+                            <button class="btn btn-success m-2" (click)="transmettre(fiche.id,fiche.Etudiant.NomEtudiant+' '+fiche.Etudiant.PrenomEtudiant)">transmettre</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+</div>

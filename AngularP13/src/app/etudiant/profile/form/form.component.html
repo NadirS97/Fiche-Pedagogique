@@ -1,0 +1,86 @@
+<div class="container">
+    <form [formGroup]="Form" (submit)="submit()">
+        <input type="hidden" formControlName="NumEtudiant" name="" >
+        
+            <div *ngIf="_error" class="input-group mb-3 alert-danger rounded py-3 px-4">
+                {{_error}}
+            </div>
+            <div *ngIf="_success" class="input-group mb-3 alert-info rounded py-3 px-4">
+              {{_success}}
+          </div>
+        <h3>Votre profil</h3>
+       <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                    <div class="form-group col-6">
+                        <h6><label for="Nom">Nom</label></h6>
+                        <input type="text" class="form-control px-3 py-2" id="Nom" [ngClass]="Form.controls['NomEtudiant'].invalid ? 'is-invalid' : 'is-valid'"  formControlName="NomEtudiant" placeholder="votre nom"  style=" height: auto;" [(ngModel)]="_data.NomEtudiant"  >
+                    <div class="invalid-feedback" *ngIf="Form.controls['NomEtudiant'].hasError('required')">
+                        Ce champs est obligatoire 
+                    </div>
+                    </div>
+                    <div class="form-group col-6">
+                        <h6><label for="Prenom">Prenom</label></h6>
+                        <input type="text" class="form-control px-3 py-2" id="Prenom"  [ngClass]="Form.controls['PrenomEtudiant'].invalid ? 'is-invalid' : 'is-valid'" formControlName="PrenomEtudiant" placeholder="votre prenom" style=" height: auto;" [(ngModel)]="_data.PrenomEtudiant" >
+                    <div class="invalid-feedback" *ngIf="Form.controls['PrenomEtudiant'].hasError('required')">
+                        Ce champs est obligatoire 
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <h6><label for="tel">Numéro Tel.</label></h6>
+                        <input type="text" class="form-control px-3 py-2" id="tel" [ngClass]="Form.controls['TelEtudiant'].invalid ? 'is-invalid' : 'is-valid'" formControlName="TelEtudiant" placeholder="+33 ..." style=" height: auto;" [(ngModel)]="_data.TelEtudiant" >
+                    <div class="invalid-feedback" *ngIf="Form.controls['TelEtudiant'].hasError('required')">
+                        Ce champs est obligatoire 
+                    </div>
+                    </div>
+                    <div class="form-group col-6">
+                        <h6><label for="dateN">Date de naissance</label></h6>
+                        <input type="date" class="form-control px-3 py-2" id="dateN" [ngClass]="Form.controls['DateNaissance'].invalid ? 'is-invalid' : 'is-valid'" formControlName="DateNaissance" placeholder="vatre date de naissance" style=" height: auto;" [(ngModel)]="_data.DateNaissance">
+                    <div class="invalid-feedback" *ngIf="Form.controls['DateNaissance'].hasError('required')">
+                        Ce champs est obligatoire 
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h5>Plus d'informations</h5>
+                    <div class="row rounded px-3 py-2" style="border:1px solid #CECCCC;">
+                        <div class="col-12"> <h6>Numéro étudiant</h6>  <input type="text" readonly  formControlName="NumEtudiant" class="form-control-plaintext ml-3 text-info" value="" style="outline: none;" [(ngModel)]="_data.NumEtudiant"></div>
+                        <div class="col-12"> <h6>Votre parcours</h6>   <input type="text" readonly  formControlName="Parcours" class="form-control-plaintext ml-3 text-info" value="" style="outline: none;" [(ngModel)]="_parcours"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-4"><h6><label >E-mail</label></h6><input type="mail" id="mail" formControlName="EmailEtudiant" readonly placeholder="Votre mail" class="form-control-plaintext px-2 py-2 text-info" style=" height: auto; outline: none;"  [(ngModel)]="_data.EmailEtudiant"></div>
+            <div class="form-group col-8"><h6><label for="Adresse">Adresse</label></h6><input type="text" id="Adresse" [ngClass]="Form.controls['AdresseEtudiant'].invalid ? 'is-invalid' : 'is-valid'" formControlName="AdresseEtudiant"  placeholder="votre adresse" class="form-control px-2 py-2" style=" height: auto;"[(ngModel)]="_data.AdresseEtudiant" >
+                <div class="invalid-feedback" *ngIf="Form.controls['AdresseEtudiant'].hasError('required')">
+                    Ce champs est obligatoire 
+                </div>
+            </div>
+            
+        </div>
+        <div class="row float-right">
+            <div class="col-12 ">
+                <button class="btn btn-primary" type="submit">Valider</button>
+            </div>
+        </div>
+    </form>
+        <div class="row">
+            <div class="col-12 p-0">  
+                <a [routerLink]="[ 'password']">Modifier votre mot de passe</a>
+            </div> 
+        </div>
+        <div class="row w-100"></div>
+        <div class="row " >
+            
+            <div class="col-6">
+                <router-outlet></router-outlet>
+            </div> 
+
+        </div>
+        
+</div>

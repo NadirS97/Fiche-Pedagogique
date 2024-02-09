@@ -1,0 +1,124 @@
+<div class="container-fuild p-4">
+
+    <div *ngIf="_success" class="row alert-success justify-content-center mx-5 my-3 rounded">
+        <div class="col-8 p-3 pl-4 ">
+            {{_success}}
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-1">
+        </div>
+        <button class="btn col-1 text-center justify-content-center pt-1">
+            <i class="bi bi-x " data-toggle="tooltip" data-placement="top" title="Fermer" style="font-size: 32px;" (click)="fermer_success()"></i>
+        </button>
+    </div>
+    <form [formGroup]="Form" (submit)="onSubmit()">
+        <div class="container ml-5 p-4 shadow-lg p-3 mb-4 bg-white rounded">
+            <h4 class="m-4">STATUT</h4>
+            <div class="row m-2 p-2">
+                <label for="inlineRadio1" class="col-3 mb-0">Regime Special d'Etude (RSE) :</label>
+                <div class="form-check form-check-inline col-1">
+                    <input class="form-check-input" type="radio"  formControlName="S_RSE" id="Regime1" value="Oui" [(ngModel)]="_checked_RSE" (click)="enable_RSE()">
+                    <label class="form-check-label" for="Regime1">Oui</label>
+                </div>
+                <div class="form-check form-check-inline col-1">
+                    <input class="form-check-input" type="radio"   formControlName="S_RSE" id="Regime2" value="Non" (click)="disable_RSE()" [attr.checked]>
+                    <label class="form-check-label" for="Regime2">Non</label>
+                </div>
+            </div>
+            <div class="row m-2 p-2">
+                <label for="inlineRadio1" class="col-3 pt-2">Redoublant {{NiveauParcours}}:</label>
+                <div class="form-check form-check-inline col-1">
+                    <input class="form-check-input" type="radio"   formControlName="S_Redoublant" id="Redoublant1" value="Oui"  [(ngModel)]="_checked_Redoublant" (click)="enable_redoublant()">
+                    <label class="form-check-label" for="Redoublant1">Oui</label>
+                </div>
+                <div class="form-check form-check-inline col-1">
+                    <input class="form-check-input" type="radio"   formControlName="S_Redoublant" id="Redoublant2" value="Non"  (click)="disable_redoublant()" checked>
+                    <label class="form-check-label" for="Redoublant2">Non</label>
+                </div>
+                <label for="inlineRadio1" class="col-3 pt-2" [hidden]='redoublant'>semestre(s) déjà obtenu(s) :</label>
+                <input class="form-control col-1" type="text"  placeholder="" aria-label="" formControlName="Semestre"[hidden]='redoublant'>
+            </div>
+            <div class="row m-2 p-2">
+                <label for="inlineRadio1" class="col-3 pt-2">AJAC :</label>
+                <div class="form-check form-check-inline col-1">
+                    <input class="form-check-input" type="radio"  id="AJAC1" formControlName="S_AJAC" value="Oui">
+                    <label class="form-check-label" for="AJAC1">Oui</label>
+                </div>
+                <div class="form-check form-check-inline col-1">
+                    <input class="form-check-input" type="radio"  id="AJAC2" formControlName="S_AJAC" [(ngModel)]="_checked_AJAC" value="Non">
+                    <label class="form-check-label" for="AJAC2">Non</label>
+                </div>
+                <label for="inlineRadio1" class="col-3 pt-2">Demande de 1/3 temps :</label>
+                <div class="form-check form-check-inline col-1">
+                    <input class="form-check-input" type="radio"  id="temps1" formControlName="S_Temps" [(ngModel)]="_checked_Temps" value="Oui">
+                    <label class="form-check-label" for="temps1">Oui</label>
+                </div>
+                <div class="form-check form-check-inline col-1">
+                    <input class="form-check-input" type="radio"  id="temps2" formControlName="S_Temps" value="Non" [checked]="true">
+                    <label class="form-check-label" for="temps2">Non</label>
+                </div>
+            </div>
+        </div>
+        <div class="container-xxl mx-5 shadow-lg p-4 mb-2 bg-white rounded">
+
+            <div class="row  m-3 px-2 pb-2 " style="border-bottom:1px solid #CECCCC;">
+                <div class="col text-center"><h6>CODE APOGEE</h6></div>
+                <div class="col text-center"><h6>TYPE OBL/OPT</h6></div>
+                <div class="col text-center"><h6>LIBELLE COURT</h6></div>
+                <div class="col text-center"><h6>INSCRIPTION</h6></div>
+                <div class="col text-center"><h6>VALIDE</h6></div>
+                <div class="col text-center"><h6>NOTE</h6></div>
+                <div class="col text-center" ><h6>ETCS</h6></div>
+                
+                <div class="col text-center" [hidden]='disableRSE'>RSE</div>
+            </div>
+            <div *ngIf="_error" class="row">
+                <div class="alert-danger p-3 rounded" style="width: 100%;">
+                    {{_error}}
+                </div>
+            </div>
+            <div *ngIf="!_error" class="row" formArrayName="UeParcours">
+                <div *ngFor="let ue of UeParcours.controls; let i=index" class="row ml-5 mr-3 w-100 ">
+                    <div [formGroupName]="i"class="row pt-3 pb-1" style="border-bottom:1px solid #CECCCC; width: 100%;">
+                    <input type="text" formControlName="idUe" hidden>
+                    <div class="col text-center">  <input type="text" readonly class="form-control-plaintext text-center" formControlName="codeapogee"></div>
+                    <div class="col text-center">  <input type="text" readonly class="form-control-plaintext text-center" formControlName="type"></div>
+                    <div class="col text-center">  <input type="text" readonly class="form-control-plaintext text-center"  formControlName="libelle"></div>
+                    <div class="col text-center py-2"> 
+                        <div class="form-check ">
+                            <input class="form-check-input" type="radio" formControlName="inscription"  value="Oui" aria-label="..."  >
+                          </div>
+                    </div>
+                    <div class="col text-center py-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" formControlName="inscription" value="Non" [(ngModel)]="_checked_INSCRIT" aria-label="...">
+                          </div>
+                    </div>
+                    <div class="col text-center py-2" >
+                        <input class="form-control text-center" type="text" placeholder="" aria-label="" formControlName="Note" [readonly]="_note_readonly">
+                    </div>
+                    <div class="col text-center"><input type="text" readonly class="form-control-plaintext text-center"  formControlName="ECTS"></div>
+                    <div class="col py-2 text-center" [hidden]='disableRSE'>
+                        <div class="form-check"  >
+                            <input class="form-check-input" type="checkbox" value="oui" formControlName="RSE">
+                          </div>
+                    </div>
+                      
+                   
+                </div>
+                </div>
+            </div>
+  
+
+        </div>
+        <div class="row mx-5 my-4 float-right">
+
+            <button class="btn btn-success rounded" type="submit">valider la fiche </button>
+
+        </div>
+    </form>
+
+    
+</div>

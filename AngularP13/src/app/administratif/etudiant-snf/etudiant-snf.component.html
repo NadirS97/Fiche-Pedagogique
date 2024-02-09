@@ -1,0 +1,50 @@
+
+  <div class="container-fluid">
+    <div *ngIf="_warning" class="row alert-warning justify-content-center mx-5 my-3 rounded">
+        <div class="col-8 p-3 pl-4 ">
+            {{_warning}}
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-1">
+        </div>
+        <button class="btn col-1 text-center justify-content-center pt-1">
+            <i class="bi bi-x " data-toggle="tooltip" data-placement="top" title="Fermer" style="font-size: 32px;" (click)="fermer_success()"></i>
+        </button>
+    </div>
+      <div class="container-xxl mx-4 shadow-lg mb-2 bg-white rounded-lg"style="border-radius: 1.5rem!important;">
+          <div class="row m-3 p-3 border-bottom my-3 ">
+              <h4 class="col-10 text-dark">{{(_etudiants.length>1)? _etudiants.length+' etudiants sans fiche':_etudiants.length+' etudiant sans fiche'}}</h4>
+          </div>
+            <div class="row m-3 p-3 text-info">
+                <div class="col">NumEtudiant</div>
+                <div class="col">Nom</div>
+                <div class="col">Prenom </div>
+                <div class="col-2">Email </div>
+                <div class="col">Parcours</div>
+                <div class="col">Num Tel</div>
+                <div class="col">Date de naissance</div>
+                <div class="col"></div>
+            </div>
+            <div *ngIf="_etudiants.length==0" class="row w-100 text-center">
+                    <h4 class="text-muted w-100 text-center pb-4">Aucun etudiant sans fiche <i class="bi bi-check-all text-success"></i> </h4>
+            </div>
+            <div class="row m-3 p-3 bg-light text-secondary" *ngFor="let etudiant of _etudiants; index as i">
+                <div class="row pl-4 w-100">
+                <div class="col p-2" >{{etudiant.NumEtudiant}}</div>
+                <div class="col p-2" >{{etudiant.NomEtudiant}}</div>
+                <div class="col p-2" >{{etudiant.PrenomEtudiant}}</div>
+                <div class="col-2 p-2" >{{ (etudiant.EmailEtudiant.length>6)? (etudiant.EmailEtudiant | slice:0:23)+'...':(etudiant.EmailEtudiant)}}</div>
+                <div class="col p-2" *ngIf="etudiant.Parcours">{{etudiant.Parcours.Libelle}}</div>
+                <div class="col p-2" *ngIf="!etudiant.Parcours">Non inscrit</div>
+                <div class="col p-2" >{{etudiant.TelEtudiant}}</div>
+                <div class="col p-2" >{{etudiant.DateNaissance | date : 'longDate'}}</div>
+                <div class="col text-center p-0">
+                <button type="button" class="btn btn-danger rounded-circle btn-sm my-0"><i class="bi bi-exclamation-circle" style="font-size: 18px;"></i></button>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+</div>

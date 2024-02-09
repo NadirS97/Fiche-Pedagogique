@@ -1,0 +1,73 @@
+<!-- Vertical navbar -->
+<div class="vertical-nav bg-white" id="sidebar" [ngClass]="{active:_active}">
+    <div class="py-4 px-3 mb-4 bg-light">
+      <div class="media d-flex align-items-center">
+        <div class="media-body">
+            <img src="../../assets/images/pedagogique_logo.png" class="img-fluid" alt="...">
+        </div>
+      </div>
+    </div>
+  
+    <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Menu</p>
+    <ul class="nav flex-column bg-white mb-0">
+      <li class="nav-item" [ngClass]="{'font-italic navbar-light light': _tableau}" (click)="style('Tableau de bord',titre)">
+        <a [routerLink]="['', 'Etu']" class="nav-link my-2 ml-2 " [ngClass]="{'text-success': _tableau,'text-dark': !_tableau}" >
+            <i class="bi bi-columns-gap mr-2 "></i>
+                  Tableau de Bord
+              </a>
+             
+      </li>
+      <li class="nav-item text-dark"[ngClass]="{'font-italic navbar-light light': _fiches}" (click)="style('Mes fiches pédagogiques',titre)">
+        <a  [routerLink]="['fiche']" class="nav-link  my-2 ml-2"  [ngClass]="{'text-success': _fiches,'text-dark': !_fiches}">
+                  <i class="bi bi-file-earmark-text-fill mr-2"></i>
+                  Fiches Pédagogiques
+              </a>
+      </li>
+      <li class="nav-item " [ngClass]="{'font-italic navbar-light light': _new}" (click)="style('Fiche pédagogique',titre)" >
+        <a [routerLink]="['ajouter']" class="nav-link my-2 ml-2"  [ngClass]="{'text-success': _new,'text-dark': !_new}">
+            <i class="bi bi-file-earmark-plus-fill mr-2"></i>
+                  Nouvelle fiche
+              </a>
+      </li>  
+    </ul>
+ 
+    <nav class="navbar fixed-bottom navbar-light " style="position: absolute;background: white;">
+      <div class="container-fluid">
+        <ul class="nav flex-column bg-white mb-0">
+          <li class="nav-item"  (click)="style('Votre Profil',titre)">
+            <a [routerLink]="['profile']" class="nav-link text-info my-2 ml-2 text-center" >
+                   <i class="bi bi-person-circle mr-2 "></i>
+                   Profil
+                  </a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['../logout']" class="nav-link text-danger my-2 ml-2">
+                   <i class="bi bi-box-arrow-left mr-2"></i>
+                   Deconnexion
+                  </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <!-- End vertical navbar -->              
+  
+  
+  <!-- Page content holder -->
+  <div class="page-content p-0" id="content" [ngClass]="{active:_active}">
+    <!-- Toggle button -->
+    <div class="top " [ngClass]="{'tableau': _tableau,'new':_new,'fiches':_fiches,'profile':!_tableau && !_new && !_fiches}" #div>
+    <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 m-4" (click)="side_bar_menu()"><div class="animated-icon2" [ngClass]="{open:!_active}"><span></span><span></span><span></span><span></span></div></button>
+    <h2 class="p-4 text-light" #titre>Mes fiches pédagogiques</h2>
+  </div>
+    <!-- content -->
+   <!-- <div class="loader">
+      <mat-spinner color="warn" ></mat-spinner>
+  </div>-->
+    
+    <router-outlet></router-outlet>
+  
+  </div>
+  <!-- content -->
+
+

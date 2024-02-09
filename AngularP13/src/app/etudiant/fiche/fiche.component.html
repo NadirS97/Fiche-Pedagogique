@@ -1,0 +1,79 @@
+
+  <div class=".container-fluid">
+    <div *ngIf="_success" class="row alert-success justify-content-center mx-5 my-3 rounded">
+      <div class="col-8 p-3 pl-4 ">
+          {{_success}}
+      </div>
+      <div class="col-2">
+
+      </div>
+      <div class="col-1">
+      </div>
+      <button class="btn col-1 text-center justify-content-center pt-1">
+          <i class="bi bi-x " data-toggle="tooltip" data-placement="top" title="Fermer" style="font-size: 32px;" (click)="fermer_success()"></i>
+      </button>
+  </div>
+  <div *ngIf="_error" class="row alert-danger justify-content-center mx-5 my-3 rounded">
+      <div class="col-8 p-3 pl-4 ">
+          {{_error}}
+      </div>
+      <div class="col-2">
+
+      </div>
+      <div class="col-1">
+      </div>
+      <button class="btn col-1 text-center justify-content-center pt-1">
+          <i class="bi bi-x " data-toggle="tooltip" data-placement="top" title="Fermer" style="font-size: 32px;" (click)="fermer_success()"></i>
+      </button>
+  </div>
+    <div class="row  m-3 px-2 pb-2 " style="border-bottom:1px solid #CECCCC;">
+        <div class="col text-center"><h5>Parcours</h5></div>
+        <div class="col text-center"><h5>Année parcours</h5></div>
+        <div class="col text-center"><h5>Mention</h5></div>
+        <div class="col text-center"><h5>Semestre</h5></div>
+        <div class="col text-center"><h5>Année d'inscription</h5></div>
+        <div class="col text-center"><h5>Etat</h5></div>
+        <div class="col text-center"></div>
+    </div>
+    <div *ngIf="_data.length==0" class="row w-100 text-center">
+        <h4 class="text-muted w-100 text-center pb-4">Aucune fiche crée<i class="bi bi-emoji-frown-fill text-warning ml-4"></i></h4>
+    </div>
+    <div *ngFor="let data of _data; index as i" class="row m-3 p-4 rounded" style="border:1px solid #CECCCC;">
+
+        <div class="row" style="width:100%;">
+
+            <div class="col text-center p-2">{{ _data[i].UeParcours[0].ue.parcours.Libelle }}</div>
+            <div class="col text-center p-2">{{ _data[i].UeParcours[0].AnneeParcours }}</div>
+            <div class="col text-center p-2">{{ _data[i].UeParcours[0].ue.parcours.mention }}</div>
+            <div class="col text-center p-2">{{ _data[i].Semestre }}</div>
+            <div class="col text-center p-2">{{ _data[i].Date | date: "yyyy"}}</div>
+            <div class="col text-center p-2">
+               <span *ngIf="_data[i].EtatFiche=='valide' && _data[i].transmis"  class="text-success">Fiche bien validée <i class="bi bi-check-circle-fill"></i></span>
+                <span *ngIf="_data[i].EtatFiche=='valide' && !_data[i].transmis" class=" text-info" >Fiche transmise <i  class="bi bi-hourglass-split"></i></span>
+               <span  *ngIf="_data[i].EtatFiche=='non valide'" class="text-danger"> Fiche refusée <i class="bi bi-x-circle-fill text-danger"></i></span> 
+               <span *ngIf="_data[i].EtatFiche=='En cours'" class="text-warning"> Fiche en cours de traitement <i  class="bi bi-clock-fill text-warning"></i></span>
+            </div>
+            <div class="btn btn-link col text-center p-2 "style="color: #0CBB00;" #p (click)="plus(div,p)">Plus <i class="bi bi-plus ml-2"></i></div>
+
+        </div>
+        <div class="w-100"></div>
+        <div class="w-100" [id]="'e' + i" #div style="display: none;">
+          <div  *ngFor="let more of _data[i].UeParcours; index as j" class="row m-2 p-4" style="width:100%;" >
+              
+              <div class="col text-info"> <b class="text-dark">Code Apogee</b> : {{ more.ue.CodeApogee }}</div>
+              <div class="col text-info"> <b class="text-dark">Type</b> : {{ more.ue.Type }}</div>
+              <div class="col text-info"> <b class="text-dark">Libelle</b> : {{ more.ue.Libelle }}</div>
+              <div class="col text-info"> <b class="text-dark">ECTS</b> : {{ more.ue.ECTS }}</div>
+              <div class="col text-info"> <b class="text-dark">Inscription</b> : {{ more.Inscription }}</div>
+              <div class="col text-info"> <b class="text-dark">RSE</b> : {{ (more.ValidationRSE)? more.ValidationRSE :'En cours ...' }}</div>
+              <div class="col text-info"> <b class="text-dark">Note</b> : {{ more.VNote }}</div>
+            
+          </div>
+          <div *ngIf="!(_data[i].EtatFiche=='valide')" class="row w-100">
+            <div class="col-11"></div>
+            <button class="btn btn-danger m-2" (click)="supprimer(_data[i].id)">Supprimer</button>
+        </div>
+      </div>
+
+    </div>
+  </div>

@@ -1,0 +1,73 @@
+<!-- Vertical navbar -->
+<div class="vertical-nav bg-white" id="sidebar" [ngClass]="{active:_active}">
+    <div class="py-4 px-3 mb-4 bg-light">
+      <div class="media d-flex align-items-center">
+        <div class="media-body">
+            <img src="../../assets/images/pedagogique_logo.png" class="img-fluid" alt="...">
+        </div>
+      </div>
+    </div>
+  
+    <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Menu</p>
+    <ul class="nav flex-column bg-white mb-0">
+      <li class="nav-item">
+        <a [routerLink]="['', 'Ens']" class="nav-link my-2 ml-2 " [ngClass]="{'text-dark': !link1 ,'text-info': link1}"  (click)="nav(1)" >
+            <i class="bi bi-columns-gap mr-2 "></i>
+                  Tableau De Bord
+              </a>
+             
+      </li>
+      <li class="nav-item text-dark">
+        <a  [routerLink]="['fr']" class="nav-link  my-2 ml-2 text-dark"  [ngClass]="{'text-dark': !link2 ,'text-info': link2}"  (click)="nav(2)">
+                  <i class="bi bi-file-earmark-arrow-down-fill mr-2" ></i>
+                  Fiches reçues
+              </a>
+      </li> 
+      <li class="nav-item text-dark" >
+        <a [routerLink]="['etu']" class="nav-link my-2 ml-2 text-dark" [ngClass]="{'text-dark': !link3 ,'text-info': link3}"  (click)="nav(3)" >
+            <i class="bi bi-person-x-fill mr-2"></i>
+            Etudiants sans fiche  
+              </a>
+      </li>  
+      <li class="nav-item text-dark" >
+        <a [routerLink]="['list']" class="nav-link my-2 ml-2 text-dark" [ngClass]="{'text-dark': !link4 ,'text-info': link4}"  (click)="nav(4)" >
+            <i class="bi bi-files mr-2"></i>
+            Fiches confirmées
+              </a>
+      </li>  
+    </ul>
+ 
+    <nav class="navbar fixed-bottom navbar-light " style="position: absolute;background: white;">
+      <div class="container-fluid">
+        <ul class="nav flex-column bg-white mb-0">
+          <li class="nav-item">
+            <a [routerLink]="['../logout']" class="nav-link text-danger my-2 ml-2">
+                   <i class="bi bi-box-arrow-left mr-2"></i>
+                   Deconnexion
+                  </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <!-- End vertical navbar -->              
+  
+  
+  <!-- Page content holder -->
+  <div class="page-content p-0" id="content" [ngClass]="{active:_active}">
+    <!-- Toggle button -->
+    <div class="top " #div >
+    <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 m-4" (click)="side_bar_menu()" style="position:absolute" ><div class="animated-icon2" [ngClass]="{open:!_active}"><span></span><span></span><span></span><span></span></div></button>
+    <h2 class="lfo9 py-4 text-light shadow-lg mb-2" style="padding-left:120px" #titre>Les fiches pédagogiques</h2>
+  </div>
+    <!-- content -->
+   <!-- <div class="loader">
+      <mat-spinner color="warn" ></mat-spinner>
+  </div>-->
+    
+    <router-outlet></router-outlet>
+  
+  </div>
+  <!-- content -->
+
+
